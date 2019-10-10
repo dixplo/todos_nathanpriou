@@ -30,13 +30,17 @@ public class TestController {
 		vue.addData("dialog",false);
 		vue.addData("snackbar",false);
 		vue.addData("message");
-		vue.addDataRaw("todo","{label:'',description:'',poids:'',avancement:''}");
-		vue.addMethod("addTodo", "let self=this;"+Http.post("/rest/todo/create", "this.todo", "self.dialog=false;"
-				+ "self.message='Todo ajouté ajoutée';"
+		vue.addDataRaw("Todo","{label:'',description:'',poids:'',avancement:''}");
+		vue.addMethod("addTodo", "let self=this;"+Http.post("/rest/todo/create", "this.Todo", "self.dialog=false;"
+				+ "self.message='Todo ajouté ';"
 				+ "self.snackbar=true;"
 				+ "self.items.push(response.data);self.orga={};"));
+		vue.addMethod("deleteTodo", 
+				"let self=this;let $='';"+Http.delete("'/rest/todo/'+item.id+$","self.message=response.data;"
+						+ "self.snackbar=true;"
+						+ "self.items.splice(index,1);"),"item","index");
 		model.put("vue", vue);
-		return "frmOrga";
+		return "spa";
 	}
 }
 
